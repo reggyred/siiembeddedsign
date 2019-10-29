@@ -28,6 +28,11 @@ class LedDriver:
         t3 = time()
         print("Reset took: {}".format(t3-t2))
 
+    def transmit_no_encode(self, data):
+        self.spi.xfer3(data)
+        self.reset_signal()
+
+
     def transmit_part(self, data, encode_func=encode_rgb, limit=8):
         out = encode_func(data, limit=limit)
         self.spi.xfer2(out)

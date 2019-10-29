@@ -31,7 +31,7 @@ letter_b = letter_d
 
 NO_OF_LEDS = letter_e + letter_m + letter_b + letter_e + \
         + letter_d + letter_d + letter_e + letter_d
-#NO_OF_LEDS = letter_e_cripple + letter_m
+#NO_OF_LEDS = letter_e + letter_m + letter_b
 driver = LedDriver()
 source = generate_rainbow(NO_OF_LEDS)
 

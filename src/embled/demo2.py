@@ -1,25 +1,13 @@
-from colors import RGB
-from led_driver import LedDriver
-import numpy
-from colorsys import hsv_to_rgb
-from time import sleep
+from controller import Controller
+from effect import RainbowEffect
 
-driver = LedDriver()
+letter_d = 70
+letter_e = 56
+letter_m = 51
+letter_b = letter_d
 
-h = 0.0
+NO_OF_LEDS = letter_e + letter_m + letter_b + letter_e + letter_d + letter_d + letter_e + letter_d
 
-point1 = RGB(127, 0, 0)
-point2 = RGB(0, 127, 0)
-point3 = RGB(0, 0, 127)
-blank = RGB(1, 1, 1)
-source = [point1, point2, point3, blank, blank, blank, blank, blank, blank, blank, blank, blank]
-try:
-    while True:
-        data = []
-        for i in range(12):
-            data.extend(source[i:12])
-            data.extend(source[0:i])
-            driver.transmit(data)
-        sleep(1/10)
-except KeyboardInterrupt:
-    pass
+effect = RainbowEffect(number_of_leds=NO_OF_LEDS, saturation=1.0, value=0.05, sleep_time=0.01)
+controller = Controller(effect)
+controller.start()

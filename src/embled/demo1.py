@@ -1,9 +1,9 @@
 from colors import RGB
 from led_driver import LedDriver
-import numpy
 from colorsys import hsv_to_rgb
 from time import sleep
 import collections
+from encode import encode_rgb
 
 
 def generate_rainbow(number):
@@ -23,6 +23,7 @@ def rotate_list(lst, n):
     d.rotate(n)
     return list(d)
 
+
 letter_e_cripple = 53
 letter_d = 70
 letter_e = 56
@@ -31,17 +32,17 @@ letter_b = letter_d
 
 NO_OF_LEDS = letter_e + letter_m + letter_b + letter_e + \
         + letter_d + letter_d + letter_e + letter_d
-#NO_OF_LEDS = letter_e + letter_m + letter_b
+
 driver = LedDriver()
 source = generate_rainbow(NO_OF_LEDS)
+source_rgb = encode_rgb(source, 8)
 
 try:
     while True:
-        for n in range(NO_OF_LEDS):
-            data = rotate_list(source, n)
-            print("Iter")
-            driver.transmit(data)
+        for n in range(0, NO_OF_LEDS*24, 24):
+            data = rotate_list(source_rgb, n)
+            driver.transmit_no_encode(data)
             driver.reset_signal()
-            #sleep(1.0/NO_OF_LEDS)
+            sleep(0.01)
 except KeyboardInterrupt:
     pass

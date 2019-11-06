@@ -1,49 +1,13 @@
-<<<<<<< HEAD
-from colors import RGB
-from led_driver import LedDriver
-import numpy
-from colorsys import hsv_to_rgb
-from time import sleep
+from controller import Controller
+from effect import ColorToWhiteEffect
 
-driver = LedDriver()
+letter_d = 70
+letter_e = 56
+letter_m = 51
+letter_b = letter_d
 
-h = 0.0
+NO_OF_LEDS = letter_e + letter_m + letter_b + letter_e + letter_d + letter_d + letter_e + letter_d
 
-try:
-    while True:
-        data = []
-        for i in range(60):
-            r, g, b = hsv_to_rgb(h, 1.0, 0.3)
-            data.append(RGB(r, g, b))
-            h += 0.02
-            if h > 1:
-                h = 0.0
-        driver.transmit(data)
-        sleep(3)
-except KeyboardInterrupt:
-    pass
-=======
-from colors import RGB
-from led_driver import LedDriver
-import numpy
-from colorsys import hsv_to_rgb
-from time import sleep
-
-driver = LedDriver()
-
-h = 0.0
-
-try:
-    while True:
-        data = []
-        for i in range(60):
-            r, g, b = hsv_to_rgb(h, 1.0, 0.3)
-            data.append(RGB(r, g, b))
-            h += 0.02
-            if h > 1:
-                h = 0.0
-        driver.transmit(data)
-        sleep(3)
-except KeyboardInterrupt:
-    pass
->>>>>>> WIP1
+effect = ColorToWhiteEffect(number_of_leds=NO_OF_LEDS, color=0.0, value=0.05, sleep_time=0.01)
+controller = Controller(effect)
+controller.start()
